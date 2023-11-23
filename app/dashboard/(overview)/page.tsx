@@ -2,7 +2,6 @@ import CardWrapper from '@/app/dashboard/cards';
 import RevenueChart from '@/app/dashboard/revenue-chart';
 import LatestInvoices from '@/app/dashboard/latest-invoices';
 import { lusitana } from '@/app/ui/fonts';
-import { fetchCardData } from '@/app/lib/data';
 import { Suspense } from 'react';
 import {
   RevenueChartSkeleton,
