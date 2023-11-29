@@ -1,4 +1,4 @@
-import Pagination from '@/app/dashboard/invoices/pagination';
+import Pagination from '@/app/ui/pagination';
 import Search from '@/app/ui/search';
 import Table from '@/app/dashboard/invoices/table';
 import { CreateInvoice } from '@/app/dashboard/invoices/buttons';
