@@ -95,10 +95,11 @@ const ITEMS_PER_PAGE = 6;
 export async function fetchFilteredInvoices(
   query: string,
   currentPage: number,
+  name: string,
 ) {
   noStore();
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-
+  const property = `invoices[${name}]`;
   try {
     const invoices = await sql<InvoicesTable>`
       SELECT
@@ -117,7 +118,7 @@ export async function fetchFilteredInvoices(
         invoices.amount::text ILIKE ${`%${query}%`} OR
         invoices.date::text ILIKE ${`%${query}%`} OR
         invoices.status ILIKE ${`%${query}%`}
-      ORDER BY invoices.date DESC
+      ORDER BY ${property} DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 

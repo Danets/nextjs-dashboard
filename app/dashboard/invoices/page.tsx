@@ -8,6 +8,8 @@ import { Suspense } from 'react';
 import { fetchCustomers, fetchInvoicesPages } from '@/app/lib/data';
 import { Metadata } from 'next';
 import Filtering from '@/app/ui/filtering';
+import Sorting from '@/app/ui/sorting';
+import { dirname } from 'node:path/posix';
 
 export const metadata: Metadata = {
   title: 'Invoices',
@@ -19,10 +21,12 @@ export default async function Page({
   searchParams?: {
     query?: string;
     page?: string;
+    name?: string;
   };
 }) {
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
+  const name = searchParams?.name || 'date';
 
   const totalPages = await fetchInvoicesPages(query);
   const customers = await fetchCustomers();
@@ -38,7 +42,8 @@ export default async function Page({
       </div>
       <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
         <Filtering customers={customers} />
-        <Table query={query} currentPage={currentPage} />
+        <Sorting />
+        <Table query={query} currentPage={currentPage} name={name} />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
         <Pagination totalPages={totalPages} />
